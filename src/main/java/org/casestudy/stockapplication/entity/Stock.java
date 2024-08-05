@@ -1,4 +1,4 @@
-package org.casestudy.stockapplication.stockapplication.entity;
+package org.casestudy.stockapplication.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -36,8 +36,6 @@ public class Stock {
         this.lastUpdate = lastUpdate;
         this.stockExchanges = stockExchanges;
     }
-
-    // Getters and Setters Methods
 
     public Long getId() {
         return id;

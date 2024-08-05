@@ -1,4 +1,4 @@
-package org.casestudy.stockapplication.stockapplication.entity;
+package org.casestudy.stockapplication.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -17,16 +17,10 @@ public class StockExchange {
     private boolean liveInMarket;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "stock_exchange_stocks",
-            joinColumns = @JoinColumn(name = "stock_exchange_id"),
-            inverseJoinColumns = @JoinColumn(name = "stock_id")
-    )
     @JsonIgnoreProperties("stockExchanges")
     private Set<Stock> stocks = new HashSet<>();
 
     // Constructors
-
     public StockExchange() {
     }
 
@@ -37,8 +31,6 @@ public class StockExchange {
         this.liveInMarket = liveInMarket;
         this.stocks = stocks;
     }
-
-    // Getters and Setters Methods
 
     public Long getId() {
         return id;

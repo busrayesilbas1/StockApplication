@@ -1,4 +1,7 @@
-package org.casestudy.stockapplication.stockapplication.repository;
+package org.casestudy.stockapplication.repository;
 
-public class StockRepository {
+import org.casestudy.stockapplication.entity.Stock;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StockRepository extends JpaRepository<Stock, Long> {
 }
