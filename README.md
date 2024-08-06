@@ -128,7 +128,41 @@ The application will start and listen on http://localhost:8080.
         mvn test
         
 * **API Endpoint Testing with Postman**
-  - In addition to unit and integration tests, all API endpoints have been tested using Postman to ensure they behave as expected with different scenarios.
+  - In addition to unit and integration tests, all API endpoints have been tested using Postman to ensure they behave as expected with different scenarios. Some cURL commands from Postman:
+    
+  - List one stockExchange with all the stocks
+
+        curl --location 'http://localhost:8080/api/v1/stock-exchange/NYSE' \
+        --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNzd29yZA=='
+  - Able to create a stock
+
+        curl --location 'http://localhost:8080/api/v1/stock' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNzd29yZA==' \
+        --data '{
+              "name": "AAPL",
+              "description": "Apple",
+              "currentPrice": "100.00"
+         }'
+  - Able to add the stock to the stock exchange
+
+        curl --location --request POST 'http://localhost:8080/api/v1/stock-exchange/NYSE/add-stock/1' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNzd29yZA=='
+  - Able to delete the stock from the stock exchange
+
+        curl --location --request DELETE 'http://localhost:8080/api/v1/stock-exchange/NYSE/remove-stock/1' \
+        --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNzd29yZA=='
+  - Update the price of a stock
+
+        curl --location --request PUT 'http://localhost:8080/api/v1/stock/1/update-price' \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNzd29yZA==' \
+        --data '800.00'
+  - Able to the delete the stock from the system
+
+        curl --location --request DELETE 'http://localhost:8080/api/v1/stock/1' \
+        --header 'Authorization: Basic YWRtaW46YWRtaW5wYXNzd29yZA==' 
 
 * **Load Testing with Apache JMeter** 
   - Multiple users can use the system simultaneously. To ensure the system can handle concurrent users, load testing was performed using Apache JMeter. The results confirm that the system supports multiple simultaneous users effectively.
