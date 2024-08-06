@@ -118,7 +118,7 @@ The application will start and listen on http://localhost:8080.
     
     
 * **Authorization**
-  - Users with the ADMIN role have full access to all endpoints. Users with the USER role are authorized only to update stock prices. They do not have access to other administrative functions.
+  - Users with the ADMIN role have full access to all endpoints. Users with the USER role are authorized only to update stock prices. They do not have access to other endpoints.
 
 ## Testing
 * **Unit and Integration Tests**
