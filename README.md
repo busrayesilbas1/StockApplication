@@ -14,7 +14,6 @@ Instructions for building and running the solution, with initialization resource
 * Spring Boot: 3.3.2 
 * H2 Database: In-memory database for development and testing purposes
 * IDE: IntelliJ IDEA, or any other preferred Java IDE
-* Apache JMeter 5.6.3
 
 The application will start and listen on http://localhost:8080.
 
@@ -30,6 +29,7 @@ The application will start and listen on http://localhost:8080.
 ## Tools and Plugins
 * Git: Version control system to clone the repository
 * Postman or cURL: For testing API endpoints
+* Apache JMeter 5.6.3: For load testing
 
 ## Installation
 
