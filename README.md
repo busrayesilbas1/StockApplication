@@ -5,7 +5,7 @@
 This Java based Spring Boot backend application is designed to manage stocks and stock exchanges, providing functionalities to create, update, delete, and retrieve stocks and stock exchanges. 
 It uses H2 memory database for development and testing purposes and ensures secure access to endpoints using Spring Security. 
 The application can handle multiple users accessing the system simultaneously. Database transactions are managed with Spring's @Transactional annotation to ensure data integrity. 
-Session management is implemented with Spring Security, allowing for multiple concurrent user sessions. To ensure the robustness and reliability of the application, extensive testing has been conducted.
+Session management is implemented with Spring Security, allowing for multiple concurrent user sessions. Extensive testing has been conducted to ensure the robustness and reliability of the application.
 Instructions for building and running the solution, with initialization resources such as scripts, are provided to make setup and deployment easier and to clarify the work done during the process.
 
 ## Development Tools
