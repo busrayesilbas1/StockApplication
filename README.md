@@ -14,6 +14,7 @@ Instructions for building and running the solution, with initialization resource
 * Spring Boot: 3.3.2 
 * H2 Database: In-memory database for development and testing purposes
 * IDE: IntelliJ IDEA, or any other preferred Java IDE
+* Apache JMeter 5.6.3
 
 The application will start and listen on http://localhost:8080.
 
@@ -118,7 +119,7 @@ The application will start and listen on http://localhost:8080.
     
 * **Authorization**
   - Users with the ADMIN role have full access to all endpoints. Users with the USER role are authorized only to update stock prices. They do not have access to other administrative functions.
- 
+
 ## Testing
 * **Unit and Integration Tests**
   - Both unit tests and integration tests have been developed and run locally to ensure the correctness and robustness of the application.
@@ -128,7 +129,10 @@ The application will start and listen on http://localhost:8080.
         
 * **API Endpoint Testing with Postman**
   - In addition to unit and integration tests, all API endpoints have been tested using Postman to ensure they behave as expected with different scenarios.
-    
+
+* **Load Testing with Apache JMeter** 
+  - Multiple users can use the system simultaneously. To ensure the system can handle concurrent users, load testing was performed using Apache JMeter. The results confirm that the system supports multiple simultaneous users effectively.
+
 ## Troubleshooting
 * **401 Unauthorized Error:** The request has not been applied because it lacks valid authentication credentials. Ensure you are logged in with valid credentials. 
 * **403 Forbidden Error:** The server understood the request, but refuses to authorize it. The client does not have the necessary permissions for the resource. Ensure you have the correct role (ADMIN or USER) when accessing endpoints.
