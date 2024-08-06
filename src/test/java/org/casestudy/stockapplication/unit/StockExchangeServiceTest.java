@@ -37,8 +37,8 @@ public class StockExchangeServiceTest {
     @BeforeEach
     public void setUp() {
         stockExchange = new StockExchange();
-        stockExchange.setName("USD");
-        stockExchange.setDescription("United States Dollar");
+        stockExchange.setName("NASDAQ");
+        stockExchange.setDescription("National Association of Securities Dealers Automated Quotations");
         stockExchange.setLiveInMarket(false);
 
         stock = new Stock();
@@ -51,12 +51,12 @@ public class StockExchangeServiceTest {
 
     @Test
     public void testGetStockExchangeByName_Found() {
-        when(stockExchangeRepository.findByName("USD")).thenReturn(Optional.ofNullable(stockExchange));
+        when(stockExchangeRepository.findByName("NASDAQ")).thenReturn(Optional.ofNullable(stockExchange));
 
-        Optional<StockExchange> result = stockExchangeService.getStockExchangeByName("USD");
+        Optional<StockExchange> result = stockExchangeService.getStockExchangeByName("NASDAQ");
 
         assertTrue(result.isPresent());
-        assertEquals("USD", result.get().getName());
+        assertEquals("NASDAQ", result.get().getName());
     }
 
     @Test
@@ -71,42 +71,42 @@ public class StockExchangeServiceTest {
 
     @Test
     public void testAddStockToStockExchange_Success() {
-        when(stockExchangeRepository.findByName("USD")).thenReturn(Optional.of(stockExchange));
+        when(stockExchangeRepository.findByName("NASDAQ")).thenReturn(Optional.of(stockExchange));
         when(stockRepository.findById(1L)).thenReturn(Optional.of(stock));
         when(stockExchangeRepository.save(stockExchange)).thenReturn(stockExchange);
 
-        Optional<StockExchange> result = stockExchangeService.addStockToStockExchange("USD", 1L);
+        Optional<StockExchange> result = stockExchangeService.addStockToStockExchange("NASDAQ", 1L);
 
         assertTrue(result.isPresent());
         assertEquals(1, result.get().getStocks().size());
         assertTrue(result.get().getStocks().contains(stock));
         assertFalse(result.get().isLiveInMarket());
-        verify(stockExchangeRepository, times(1)).findByName("USD");
+        verify(stockExchangeRepository, times(1)).findByName("NASDAQ");
         verify(stockRepository, times(1)).findById(1L);
         verify(stockExchangeRepository, times(1)).save(stockExchange);
     }
 
     @Test
     public void testAddStockToStockExchangeStock_ExchangeNotFound() {
-        when(stockExchangeRepository.findByName("USD")).thenReturn(Optional.empty());
+        when(stockExchangeRepository.findByName("NASDAQ")).thenReturn(Optional.empty());
 
-        Optional<StockExchange> result = stockExchangeService.addStockToStockExchange("USD", 1L);
+        Optional<StockExchange> result = stockExchangeService.addStockToStockExchange("NASDAQ", 1L);
 
         assertFalse(result.isPresent());
-        verify(stockExchangeRepository, times(1)).findByName("USD");
+        verify(stockExchangeRepository, times(1)).findByName("NASDAQ");
         verify(stockRepository, never()).findById(anyLong());
         verify(stockExchangeRepository, never()).save(any());
     }
 
     @Test
     public void testAddStockToStockExchange_StockNotFound() {
-        when(stockExchangeRepository.findByName("USD")).thenReturn(Optional.of(stockExchange));
+        when(stockExchangeRepository.findByName("NASDAQ")).thenReturn(Optional.of(stockExchange));
         when(stockRepository.findById(1L)).thenReturn(Optional.empty());
 
-        Optional<StockExchange> result = stockExchangeService.addStockToStockExchange("USD", 1L);
+        Optional<StockExchange> result = stockExchangeService.addStockToStockExchange("NASDAQ", 1L);
 
         assertFalse(result.isPresent());
-        verify(stockExchangeRepository, times(1)).findByName("USD");
+        verify(stockExchangeRepository, times(1)).findByName("NASDAQ");
         verify(stockRepository, times(1)).findById(1L);
         verify(stockExchangeRepository, never()).save(any());
     }
@@ -115,41 +115,41 @@ public class StockExchangeServiceTest {
     public void testRemoveStockFromStockExchange_Success() {
         stockExchange.getStocks().add(stock);
 
-        when(stockExchangeRepository.findByName("USD")).thenReturn(Optional.of(stockExchange));
+        when(stockExchangeRepository.findByName("NASDAQ")).thenReturn(Optional.of(stockExchange));
         when(stockRepository.findById(1L)).thenReturn(Optional.of(stock));
         when(stockExchangeRepository.save(stockExchange)).thenReturn(stockExchange);
 
-        Optional<StockExchange> result = stockExchangeService.removeStockFromStockExchange("USD", 1L);
+        Optional<StockExchange> result = stockExchangeService.removeStockFromStockExchange("NASDAQ", 1L);
 
         assertTrue(result.isPresent());
         assertEquals(0, result.get().getStocks().size());
         assertFalse(result.get().isLiveInMarket());
-        verify(stockExchangeRepository, times(1)).findByName("USD");
+        verify(stockExchangeRepository, times(1)).findByName("NASDAQ");
         verify(stockRepository, times(1)).findById(1L);
         verify(stockExchangeRepository, times(1)).save(stockExchange);
     }
 
     @Test
     public void testRemoveStockFromStockExchangeStock_ExchangeNotFound() {
-        when(stockExchangeRepository.findByName("USD")).thenReturn(Optional.empty());
+        when(stockExchangeRepository.findByName("NASDAQ")).thenReturn(Optional.empty());
 
-        Optional<StockExchange> result = stockExchangeService.removeStockFromStockExchange("USD", 1L);
+        Optional<StockExchange> result = stockExchangeService.removeStockFromStockExchange("NASDAQ", 1L);
 
         assertFalse(result.isPresent());
-        verify(stockExchangeRepository, times(1)).findByName("USD");
+        verify(stockExchangeRepository, times(1)).findByName("NASDAQ");
         verify(stockRepository, never()).findById(anyLong());
         verify(stockExchangeRepository, never()).save(any());
     }
 
     @Test
     public void testRemoveStockFromStockExchange_StockNotFound() {
-        when(stockExchangeRepository.findByName("USD")).thenReturn(Optional.of(stockExchange));
+        when(stockExchangeRepository.findByName("NASDAQ")).thenReturn(Optional.of(stockExchange));
         when(stockRepository.findById(1L)).thenReturn(Optional.empty());
 
-        Optional<StockExchange> result = stockExchangeService.removeStockFromStockExchange("USD", 1L);
+        Optional<StockExchange> result = stockExchangeService.removeStockFromStockExchange("NASDAQ", 1L);
 
         assertFalse(result.isPresent());
-        verify(stockExchangeRepository, times(1)).findByName("USD");
+        verify(stockExchangeRepository, times(1)).findByName("NASDAQ");
         verify(stockRepository, times(1)).findById(1L);
         verify(stockExchangeRepository, never()).save(any());
     }

@@ -45,7 +45,7 @@ public class StockExchangeControllerIntegrationTest {
     @BeforeEach
     public void setUp() {
         Stock stock = new Stock(1L, "AAPL", "c.", null, null, null);
-        stockExchange = new StockExchange(1L, "EUR", "EURO", false, Set.of(stock));
+        stockExchange = new StockExchange(1L, "LSE", "London Stock Exchange", false, Set.of(stock));
     }
 
     @Test
@@ -53,10 +53,10 @@ public class StockExchangeControllerIntegrationTest {
     public void testGetStockExchangeByName() throws Exception {
         Mockito.when(stockExchangeService.getStockExchangeByName(anyString())).thenReturn(Optional.of(stockExchange));
 
-        mockMvc.perform(get("/api/v1/stock-exchange/EUR"))
+        mockMvc.perform(get("/api/v1/stock-exchange/LSE"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("EUR"))
-                .andExpect(jsonPath("$.description").value("EURO"));
+                .andExpect(jsonPath("$.name").value("LSE"))
+                .andExpect(jsonPath("$.description").value("London Stock Exchange"));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class StockExchangeControllerIntegrationTest {
     public void testGetStockExchangeByNameNotFound() throws Exception {
         Mockito.when(stockExchangeService.getStockExchangeByName(anyString())).thenReturn(Optional.empty());
 
-        mockMvc.perform(get("/api/v1/stock-exchange/EUR"))
+        mockMvc.perform(get("/api/v1/stock-exchange/LSE"))
                 .andExpect(status().isNotFound());
     }
 
@@ -73,7 +73,7 @@ public class StockExchangeControllerIntegrationTest {
     public void testAddStockToStockExchange() throws Exception {
         Mockito.when(stockExchangeService.addStockToStockExchange(anyString(), anyLong())).thenReturn(Optional.of(stockExchange));
 
-        mockMvc.perform(post("/api/v1/stock-exchange/EUR/add-stock/1"))
+        mockMvc.perform(post("/api/v1/stock-exchange/LSE/add-stock/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.stocks[0].name").value("AAPL"));
     }
@@ -83,17 +83,17 @@ public class StockExchangeControllerIntegrationTest {
     public void testAddStockToStockExchangeNotFound() throws Exception {
         Mockito.when(stockExchangeService.addStockToStockExchange(anyString(), anyLong())).thenReturn(Optional.empty());
 
-        mockMvc.perform(post("/api/v1/stock-exchange/EUR/add-stock/1"))
+        mockMvc.perform(post("/api/v1/stock-exchange/LSE/add-stock/1"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockUser(username = "admin", roles = "ADMIN")
     public void testRemoveStockFromStockExchange() throws Exception {
-        StockExchange updatedStockExchange = new StockExchange(1L, "EUR", "EURO", false, Set.of());
+        StockExchange updatedStockExchange = new StockExchange(1L, "LSE", "London Stock Exchange", false, Set.of());
         Mockito.when(stockExchangeService.removeStockFromStockExchange(anyString(), anyLong())).thenReturn(Optional.of(updatedStockExchange));
 
-        mockMvc.perform(delete("/api/v1/stock-exchange/EUR/remove-stock/1"))
+        mockMvc.perform(delete("/api/v1/stock-exchange/LSE/remove-stock/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.stocks").isEmpty());
     }
@@ -103,7 +103,7 @@ public class StockExchangeControllerIntegrationTest {
     public void testRemoveStockFromStockExchangeNotFound() throws Exception {
         Mockito.when(stockExchangeService.removeStockFromStockExchange(anyString(), anyLong())).thenReturn(Optional.empty());
 
-        mockMvc.perform(delete("/api/v1/stock-exchange/EUR/remove-stock/1"))
+        mockMvc.perform(delete("/api/v1/stock-exchange/LSE/remove-stock/1"))
                 .andExpect(status().isNotFound());
     }
 }

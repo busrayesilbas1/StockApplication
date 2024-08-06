@@ -49,7 +49,7 @@ public class StockServiceTest {
         stockExchanges = new ArrayList<>();
         StockExchange stockExchange = new StockExchange();
         stockExchange.setId(1L);
-        stockExchange.setName("USD");
+        stockExchange.setName("NYSE");
         stockExchange.getStocks().add(stock);
         stockExchanges.add(stockExchange);
     }
