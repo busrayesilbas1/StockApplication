@@ -1,4 +1,4 @@
-# README: STOCK EXCHANGE APPLICATION
+# README: STOCK & STOCK EXCHANGE MANAGEMENT APPLICATION
 
 ## Overview
 
@@ -15,6 +15,8 @@ Detailed instructions on building and running the solution, along with initializ
 * H2 Database: In-memory database for development and testing purposes
 * IDE: IntelliJ IDEA, or any other preferred Java IDE
 
+The application will start and listen on http://localhost:8080.
+
 ## Dependencies
 * Spring Boot Starter Web
 * Spring Boot Starter Data JPA
@@ -29,28 +31,55 @@ Detailed instructions on building and running the solution, along with initializ
 * Postman or cURL: For testing API endpoints
 
 ## Endpoints
-* **Get Stock Exchange by Name**
+* **List a Stock Exchange Along With All Its Listed Stocks**
   - GET /api/v1/stock-exchange/{name}
   - Roles: ADMIN
 
-* **Add Stock to Stock Exchange**
+* **Add the Stock to the Stock Exchange**
   - POST /api/v1/stock-exchange/{name}/add-stock/{stockId}
   - Roles: ADMIN
 
-* **Remove Stock from Stock Exchange**
+* **Remove the Stock from the Stock Exchange**
   - DELETE /api/v1/stock-exchange/{name}/remove-stock/{stockId}
   - Roles: ADMIN
 
-* **Create a Stock**
-  - GET /api/v1/stock-exchange/{name}
+* **Create a New Stock**
+  - POST /api/v1/stock
+  - Roles: ADMIN
+  - Request Body:
+
+        {
+          "name": "AAPL",
+          "description": "Apple",
+          "currentPrice": "150.00"
+        }
+
+* **Update the Price of a Stock**
+  - PUT /api/v1/stock/{id}/update-price
+  - Roles: ADMIN, USER
+  - Request Body:
+    
+          800.00
+        
+* **Remove Stock from the System**
+  - DELETE /api/v1/stock/{id}
   - Roles: ADMIN
 
-* **Add Stock to Stock Exchange**
-  - POST /api/v1/stock-exchange/{name}/add-stock/{stockId}
-  - Roles: ADMIN
+## Security
+* **Authentication**
+  - The application uses Spring Security to handle authentication. Users must log in with valid credentials to access the system.
+* **Authorization**
+  - Users with the ADMIN role have full access to all endpoints. Users with the USER role are authorized only to update stock prices. They do not have access to other administrative functions.
 
-* **Remove Stock from Stock Exchange**
-  - DELETE /api/v1/stock-exchange/{name}/remove-stock/{stockId}
-  - Roles: ADMIN
+## Database
+* The application uses an H2 in-memory database. You can access the H2 console at:
+    
+          http://localhost:8080/h2-console
 
+  - JDBC URL: jdbc:h2:mem: stockexchangedb 
+  - Username: sa
+  - Password: password
 
+## Troubleshooting
+* **401 Unauthorized Error:** The application uses Spring Security to handle authentication. Users must log in with valid credentials to access the system.
+* **403 Forbidden Error:** The application uses Spring Security to handle authentication. Users must log in with valid credentials to access the system.
